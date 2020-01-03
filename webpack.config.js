@@ -32,23 +32,6 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					{loader: 'css-loader', options: { modules: true, importLoaders: 1 }},
-					{
-						loader: 'postcss-loader',
-						options: {
-							ident: 'postcss',
-							plugins: [
-								require('autoprefixer')(),
-								require('postcss-nested')(),
-							]
-						}
-					}
-				]
-			},
-			{
 				test: /\.elm$/,
 				exclude: [/elm-stuff/, /node_modules/], 
 				use: [ 'elm-hot-webpack-loader', 'elm-webpack-loader' ]
