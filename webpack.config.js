@@ -18,7 +18,6 @@ const common = {
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: '/',
 	},
-	devtool: 'inline-source-map',
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
@@ -31,7 +30,7 @@ const common = {
 	},
 	module: {
 		rules: [
-			{ test: /\.m?js$/,
+			{ test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
@@ -40,16 +39,12 @@ const common = {
 					}
 				}
 			},
-			{ test: /\.elm$/,
-				exclude: [/elm-stuff/, /node_modules/], 
-				use: [ 'elm-webpack-loader' ]
-			}
 		]
 	}
 }
 
 if (MODE === 'development') {
-	console.log('Building for dev');
+	console.log('🏗 ... Building for dev');
 	module.exports = merge(common, {
 		plugins: [
 			// suggeseted for hot loading
@@ -73,18 +68,11 @@ if (MODE === 'development') {
 				}
 			]
 		},
-		// devServer: {
-		// 	inline: true,
-		// 	stats: 'errors-only',
-		// 	contentBase: path.join(__dirname, 'src/assets'),
-		// 	open: true,
-		// 	historyApiFallback: true,
-		// },
 	})
 }
 
 if (MODE === 'production') {
-	console.log('Building fro Production...');
+	console.log('🏗 ... Building for production');
 	module.exports = merge(common, {
 		plugins: [
 			new CleanWebpackPlugin(['dist'], {

@@ -15,7 +15,7 @@ update _ _ =
 
 
 view _ =
-    h1 [] [ text "sally" ]
+    h1 [] [ text "goosey" ]
 
 
 subscriptions _ =
