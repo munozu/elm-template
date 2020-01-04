@@ -15,9 +15,7 @@ update _ _ =
 
 
 view _ =
-    div []
-        [ h1 [] [ text "hello bob" ]
-        ]
+    h1 [] [ text "sally" ]
 
 
 subscriptions _ =
