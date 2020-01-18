@@ -30,7 +30,7 @@ const common = {
 	},
 	module: {
 		rules: [
-			{ test: /\.js$/,
+			{ test: /\.m?js$/,
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
@@ -39,12 +39,16 @@ const common = {
 					}
 				}
 			},
+			{ test: /\.elm$/,
+				exclude: [/elm-stuff/, /node_modules/], 
+				use: [ 'elm-webpack-loader' ]
+			}
 		]
 	}
 }
 
 if (MODE === 'development') {
-	console.log('🏗 ... Building for dev');
+	console.log('Building for Development...');
 	module.exports = merge(common, {
 		plugins: [
 			// suggeseted for hot loading
@@ -67,12 +71,12 @@ if (MODE === 'development') {
 					]
 				}
 			]
-		},
+		}
 	})
 }
 
 if (MODE === 'production') {
-	console.log('🏗 ... Building for production');
+	console.log('Building for Production...');
 	module.exports = merge(common, {
 		plugins: [
 			new CleanWebpackPlugin(['dist'], {

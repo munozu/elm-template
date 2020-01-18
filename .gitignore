@@ -1,4 +1,28 @@
+*mtspace*
+elm-stuff
+node_modules
 .DS_Store
-elm-stuff/
-node_modules/
+*.log
+dist
+temp
+bin
+/story
+flow-typed
+.vscode
+/.serverless
+.idea
+.env
+.swp
+.tern-project
 
+# Auto-generated files
+# /packages/shared/src/index.js
+# /packages/shared/src/component/icon/index.js
+# /packages/shared/src/component/graphic/index.js
+# /packages/shared/src/component/schematic/index.js
+# /packages/lib/src/index.js
+# coverage
+# /packages/sample-module
+# .cache
+# flow-typed
+# .gen

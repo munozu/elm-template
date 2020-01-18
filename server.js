@@ -1,23 +1,31 @@
+const dotenv = require('dotenv');
 const path = require('path');
-const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
+const Webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 const config = require('./webpack.config');
+const devcert = require('devcert');
 
-const PORT = 3000
-const options = {
+dotenv.config();
+
+const LOCALHOST = process.env.HOST_NAME ? process.env.HOST_NAME : 'localhost'
+const PORT = process.env.PORT ? process.env.PORT : 3000;
+
+async function startServer(options) {
+	if(process.env.USE_HTTPS === 'yes') {
+		const ssl = await devcert.certificateFor(LOCALHOST, { skipCertutilInstall: false, skipHostsFile: false	});
+		options.public = LOCALHOST;
+		options.https = { ...ssl };
+	}
+	WebpackDevServer.addDevServerEntrypoints(config, options);
+	const compiler = Webpack(config);
+	const server = new WebpackDevServer(compiler, options)
+	server.listen(PORT, LOCALHOST, () => console.log(`server listening on port ${PORT}`));
+}
+
+startServer({
 	contentBase: path.join(__dirname, 'dist'),
+	historyApiFallback: true,
 	inline: true,
 	compress: true,
-	overlay: true,
 	hot: true,
-	port: PORT,
-	stats: "errors-only",
-	historyApiFallback: true
-};
-
-const compiler = webpack(config);
-const server = new webpackDevServer(compiler, options)
-
-server.listen(3000, 'localhost', () => {
-	console.log('🌏 ... Listening on port '+ PORT);
-});
+})
